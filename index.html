@@ -1,0 +1,935 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Last Call RP - Better Business Bureau</title>  
+    <style>  
+        /* ===== RESET & BASE ===== */  
+        * {  
+            margin: 0;  
+            padding: 0;  
+            box-sizing: border-box;  
+        }  
+
+        html {  
+            scroll-behavior: smooth;  
+        }  
+
+        body {  
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+            background: #0b0e14;  
+            color: #e8edf5;  
+            line-height: 1.7;  
+            overflow-x: hidden;  
+        }  
+
+        a {  
+            text-decoration: none;  
+            color: inherit;  
+        }  
+
+        /* ===== SCROLLBAR ===== */  
+        ::-webkit-scrollbar {  
+            width: 8px;  
+        }  
+        ::-webkit-scrollbar-track {  
+            background: #0b0e14;  
+        }  
+        ::-webkit-scrollbar-thumb {  
+            background: #c9a960;  
+            border-radius: 4px;  
+        }  
+
+        /* ===== UTILITY ===== */  
+        .container {  
+            max-width: 1200px;  
+            margin: 0 auto;  
+            padding: 0 24px;  
+        }  
+
+        .section-title {  
+            font-size: 2.2rem;  
+            font-weight: 700;  
+            color: #c9a960;  
+            text-transform: uppercase;  
+            letter-spacing: 3px;  
+            margin-bottom: 16px;  
+            position: relative;  
+            display: inline-block;  
+        }  
+
+        .section-title::after {  
+            content: '';  
+            display: block;  
+            width: 60%;  
+            height: 3px;  
+            background: linear-gradient(90deg, #c9a960, transparent);  
+            margin-top: 8px;  
+            border-radius: 2px;  
+        }  
+
+        .gold-text {  
+            color: #c9a960;  
+        }  
+
+        /* ===== HEADER / HERO ===== */  
+        .hero {  
+            position: relative;  
+            min-height: 100vh;  
+            display: flex;  
+            flex-direction: column;  
+            justify-content: center;  
+            align-items: center;  
+            text-align: center;  
+            background: linear-gradient(135deg, #0b0e14 0%, #1a1f2b 40%, #0f121a 100%);  
+            padding: 40px 24px;  
+            overflow: hidden;  
+        }  
+
+        .hero::before {  
+            content: '';  
+            position: absolute;  
+            top: -50%;  
+            left: -50%;  
+            width: 200%;  
+            height: 200%;  
+            background: radial-gradient(circle at 30% 50%, rgba(201, 169, 96, 0.04) 0%, transparent 60%);  
+            animation: ambientGlow 12s ease-in-out infinite alternate;  
+        }  
+
+        @keyframes ambientGlow {  
+            0% { transform: translate(0, 0); }  
+            100% { transform: translate(5%, 5%); }  
+        }  
+
+        .hero-badge {  
+            font-size: 0.85rem;  
+            letter-spacing: 6px;  
+            text-transform: uppercase;  
+            color: #8a8f9a;  
+            margin-bottom: 20px;  
+            position: relative;  
+            z-index: 1;  
+        }  
+
+        .hero-title {  
+            font-size: clamp(3rem, 10vw, 7rem);  
+            font-weight: 900;  
+            text-transform: uppercase;  
+            line-height: 1;  
+            position: relative;  
+            z-index: 1;  
+        }  
+
+        .hero-title .line1 {  
+            display: block;  
+            color: #e8edf5;  
+        }  
+
+        .hero-title .line2 {  
+            display: block;  
+            color: #c9a960;  
+            font-size: clamp(1.8rem, 4vw, 3.5rem);  
+            letter-spacing: 12px;  
+            margin-top: 8px;  
+        }  
+
+        .hero-title .line3 {  
+            display: block;  
+            font-size: clamp(1.2rem, 2.5vw, 2rem);  
+            font-weight: 300;  
+            color: #8a8f9a;  
+            margin-top: 24px;  
+            letter-spacing: 4px;  
+        }  
+
+        .hero-subtitle {  
+            max-width: 700px;  
+            margin: 32px auto 40px;  
+            font-size: 1.1rem;  
+            color: #a8aebb;  
+            position: relative;  
+            z-index: 1;  
+        }  
+
+        .hero-cta {  
+            display: inline-flex;  
+            gap: 16px;  
+            position: relative;  
+            z-index: 1;  
+            flex-wrap: wrap;  
+            justify-content: center;  
+        }  
+
+        .btn {  
+            padding: 14px 36px;  
+            border-radius: 50px;  
+            font-weight: 600;  
+            font-size: 0.95rem;  
+            text-transform: uppercase;  
+            letter-spacing: 2px;  
+            transition: all 0.3s ease;  
+            cursor: pointer;  
+            border: none;  
+            display: inline-block;  
+        }  
+
+        .btn-primary {  
+            background: #c9a960;  
+            color: #0b0e14;  
+        }  
+        .btn-primary:hover {  
+            background: #dbbf7a;  
+            transform: translateY(-2px);  
+            box-shadow: 0 8px 30px rgba(201, 169, 96, 0.3);  
+        }  
+
+        .btn-outline {  
+            background: transparent;  
+            color: #c9a960;  
+            border: 2px solid #c9a960;  
+        }  
+        .btn-outline:hover {  
+            background: rgba(201, 169, 96, 0.1);  
+            transform: translateY(-2px);  
+        }  
+
+        .scroll-indicator {  
+            position: absolute;  
+            bottom: 40px;  
+            left: 50%;  
+            transform: translateX(-50%);  
+            z-index: 1;  
+            animation: bounce 2s infinite;  
+        }  
+
+        .scroll-indicator span {  
+            display: block;  
+            width: 24px;  
+            height: 24px;  
+            border-right: 2px solid #c9a960;  
+            border-bottom: 2px solid #c9a960;  
+            transform: rotate(45deg);  
+            opacity: 0.5;  
+        }  
+
+        @keyframes bounce {  
+            0%, 100% { transform: translateX(-50%) translateY(0); }  
+            50% { transform: translateX(-50%) translateY(10px); }  
+        }  
+
+        /* ===== NAV ===== */  
+        .navbar {  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            right: 0;  
+            z-index: 1000;  
+            padding: 16px 0;  
+            background: rgba(11, 14, 20, 0.85);  
+            backdrop-filter: blur(20px);  
+            -webkit-backdrop-filter: blur(20px);  
+            border-bottom: 1px solid rgba(201, 169, 96, 0.08);  
+            transition: all 0.3s ease;  
+        }  
+
+        .navbar .container {  
+            display: flex;  
+            align-items: center;  
+            justify-content: space-between;  
+        }  
+
+        .nav-logo {  
+            font-weight: 800;  
+            font-size: 1.1rem;  
+            letter-spacing: 2px;  
+            color: #c9a960;  
+        }  
+
+        .nav-links {  
+            display: flex;  
+            gap: 32px;  
+            list-style: none;  
+        }  
+
+        .nav-links a {  
+            font-size: 0.85rem;  
+            font-weight: 500;  
+            text-transform: uppercase;  
+            letter-spacing: 1.5px;  
+            color: #8a8f9a;  
+            transition: color 0.3s ease;  
+        }  
+
+        .nav-links a:hover {  
+            color: #c9a960;  
+        }  
+
+        .hamburger {  
+            display: none;  
+            flex-direction: column;  
+            cursor: pointer;  
+            gap: 5px;  
+            background: none;  
+            border: none;  
+        }  
+
+        .hamburger span {  
+            display: block;  
+            width: 28px;  
+            height: 2px;  
+            background: #e8edf5;  
+            border-radius: 2px;  
+            transition: all 0.3s ease;  
+        }  
+
+        /* ===== SECTIONS ===== */  
+        section {  
+            padding: 100px 0;  
+        }  
+
+        section:nth-child(even) {  
+            background: #11151e;  
+        }  
+
+        /* Mission */  
+        .mission-grid {  
+            display: grid;  
+            grid-template-columns: 1fr 1fr 1fr;  
+            gap: 32px;  
+            margin-top: 48px;  
+        }  
+
+        .mission-card {  
+            background: rgba(255, 255, 255, 0.03);  
+            border: 1px solid rgba(201, 169, 96, 0.1);  
+            border-radius: 16px;  
+            padding: 40px 32px;  
+            transition: all 0.3s ease;  
+        }  
+
+        .mission-card:hover {  
+            border-color: rgba(201, 169, 96, 0.3);  
+            transform: translateY(-4px);  
+            background: rgba(201, 169, 96, 0.04);  
+        }  
+
+        .mission-card .icon {  
+            font-size: 2.5rem;  
+            margin-bottom: 16px;  
+        }  
+
+        .mission-card h3 {  
+            font-size: 1.1rem;  
+            color: #c9a960;  
+            margin-bottom: 12px;  
+            text-transform: uppercase;  
+            letter-spacing: 1px;  
+        }  
+
+        .mission-card p {  
+            color: #8a8f9a;  
+            font-size: 0.95rem;  
+        }  
+
+        /* Owner Steps */  
+        .steps {  
+            margin-top: 48px;  
+            display: flex;  
+            flex-direction: column;  
+            gap: 0;  
+            position: relative;  
+        }  
+
+        .steps::before {  
+            content: '';  
+            position: absolute;  
+            left: 24px;  
+            top: 0;  
+            bottom: 0;  
+            width: 2px;  
+            background: linear-gradient(180deg, #c9a960, rgba(201, 169, 96, 0.1));  
+        }  
+
+        .step-item {  
+            display: flex;  
+            align-items: flex-start;  
+            gap: 24px;  
+            padding: 24px 0 24px 0;  
+            position: relative;  
+        }  
+
+        .step-number {  
+            width: 50px;  
+            height: 50px;  
+            min-width: 50px;  
+            border-radius: 50%;  
+            background: #c9a960;  
+            color: #0b0e14;  
+            font-weight: 800;  
+            font-size: 1.2rem;  
+            display: flex;  
+            align-items: center;  
+            justify-content: center;  
+            position: relative;  
+            z-index: 2;  
+        }  
+
+        .step-content h4 {  
+            font-size: 1.1rem;  
+            color: #e8edf5;  
+            margin-bottom: 6px;  
+        }  
+
+        .step-content p {  
+            color: #8a8f9a;  
+            font-size: 0.95rem;  
+        }  
+
+        /* Fees */  
+        .fee-cards {  
+            display: grid;  
+            grid-template-columns: 1fr 1fr;  
+            gap: 32px;  
+            margin-top: 48px;  
+        }  
+
+        .fee-card {  
+            background: rgba(255, 255, 255, 0.03);  
+            border: 1px solid rgba(201, 169, 96, 0.1);  
+            border-radius: 16px;  
+            padding: 36px 32px;  
+        }  
+
+        .fee-card .amount {  
+            font-size: 2.8rem;  
+            font-weight: 900;  
+            color: #c9a960;  
+            margin: 12px 0;  
+        }  
+
+        .fee-card .amount small {  
+            font-size: 1rem;  
+            font-weight: 400;  
+            color: #8a8f9a;  
+        }  
+
+        .fee-card h3 {  
+            font-size: 1.1rem;  
+            text-transform: uppercase;  
+            letter-spacing: 1px;  
+        }  
+
+        .fee-card p {  
+            color: #8a8f9a;  
+            font-size: 0.95rem;  
+        }  
+
+        .fee-highlight {  
+            background: rgba(201, 169, 96, 0.08);  
+            border-color: rgba(201, 169, 96, 0.25);  
+        }  
+
+        /* Rules */  
+        .rules-grid {  
+            display: grid;  
+            grid-template-columns: 1fr 1fr;  
+            gap: 20px;  
+            margin-top: 48px;  
+        }  
+
+        .rule-item {  
+            display: flex;  
+            align-items: flex-start;  
+            gap: 14px;  
+            padding: 20px 24px;  
+            background: rgba(255, 255, 255, 0.02);  
+            border-radius: 12px;  
+            border-left: 3px solid #c9a960;  
+            transition: all 0.3s ease;  
+        }  
+
+        .rule-item:hover {  
+            background: rgba(201, 169, 96, 0.05);  
+        }  
+
+        .rule-item .bullet {  
+            color: #c9a960;  
+            font-size: 1.2rem;  
+            flex-shrink: 0;  
+            margin-top: 2px;  
+        }  
+
+        .rule-item p {  
+            color: #b0b5c0;  
+            font-size: 0.95rem;  
+        }  
+
+        .rule-item strong {  
+            color: #e8edf5;  
+        }  
+
+        /* Events */  
+        .events-text {  
+            max-width: 800px;  
+            margin-top: 32px;  
+        }  
+
+        .events-text p {  
+            color: #8a8f9a;  
+            font-size: 1.05rem;  
+            margin-bottom: 20px;  
+        }  
+
+        .events-text .highlight {  
+            color: #c9a960;  
+            font-weight: 600;  
+        }  
+
+        /* Transfer */  
+        .transfer-box {  
+            margin-top: 48px;  
+            background: rgba(201, 169, 96, 0.05);  
+            border: 1px solid rgba(201, 169, 96, 0.15);  
+            border-radius: 16px;  
+            padding: 40px;  
+        }  
+
+        .transfer-box h3 {  
+            color: #c9a960;  
+            font-size: 1.2rem;  
+            text-transform: uppercase;  
+            letter-spacing: 1px;  
+            margin-bottom: 16px;  
+        }  
+
+        .transfer-box p {  
+            color: #8a8f9a;  
+            margin-bottom: 12px;  
+        }  
+
+        .transfer-box ul {  
+            list-style: none;  
+            margin-top: 12px;  
+        }  
+
+        .transfer-box ul li {  
+            padding: 8px 0;  
+            padding-left: 24px;  
+            position: relative;  
+            color: #b0b5c0;  
+        }  
+
+        .transfer-box ul li::before {  
+            content: '▸';  
+            position: absolute;  
+            left: 0;  
+            color: #c9a960;  
+        }  
+
+        /* ===== FOOTER ===== */  
+        footer {  
+            background: #080a0f;  
+            border-top: 1px solid rgba(201, 169, 96, 0.08);  
+            padding: 48px 0;  
+            text-align: center;  
+        }  
+
+        footer .footer-logo {  
+            font-size: 1.4rem;  
+            font-weight: 800;  
+            color: #c9a960;  
+            letter-spacing: 3px;  
+            margin-bottom: 12px;  
+        }  
+
+        footer p {  
+            color: #5a5f6a;  
+            font-size: 0.9rem;  
+        }  
+
+        /* ===== RESPONSIVE ===== */  
+        @media (max-width: 968px) {  
+            .mission-grid {  
+                grid-template-columns: 1fr;  
+            }  
+
+            .fee-cards {  
+                grid-template-columns: 1fr;  
+            }  
+
+            .rules-grid {  
+                grid-template-columns: 1fr;  
+            }  
+        }  
+
+        @media (max-width: 768px) {  
+            .nav-links {  
+                display: none;  
+                position: absolute;  
+                top: 100%;  
+                left: 0;  
+                right: 0;  
+                background: rgba(11, 14, 20, 0.98);  
+                backdrop-filter: blur(20px);  
+                flex-direction: column;  
+                padding: 24px;  
+                gap: 20px;  
+                border-bottom: 1px solid rgba(201, 169, 96, 0.1);  
+            }  
+
+            .nav-links.open {  
+                display: flex;  
+            }  
+
+            .hamburger {  
+                display: flex;  
+            }  
+
+            .hero-title .line2 {  
+                letter-spacing: 6px;  
+            }  
+
+            section {  
+                padding: 64px 0;  
+            }  
+
+            .section-title {  
+                font-size: 1.6rem;  
+            }  
+
+            .transfer-box {  
+                padding: 24px;  
+            }  
+        }  
+    </style>  
+</head>  
+
+<body>  
+
+    <!-- ===== NAVBAR ===== -->  
+    <nav class="navbar" id="navbar">  
+        <div class="container">  
+            <div class="nav-logo">BBB</div>  
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">  
+                <span></span>  
+                <span></span>  
+                <span></span>  
+            </button>  
+            <ul class="nav-links" id="navLinks">  
+                <li><a href="#mission">Mission</a></li>  
+                <li><a href="#owner">Ownership</a></li>  
+                <li><a href="#fees">Fees & Taxes</a></li>  
+                <li><a href="#rules">Rules</a></li>  
+                <li><a href="#events">Events</a></li>  
+                <li><a href="#transfer">Transfer</a></li>  
+            </ul>  
+        </div>  
+    </nav>  
+
+    <!-- ===== HERO ===== -->  
+    <header class="hero" id="home">  
+        <div class="hero-badge">Last Call RP</div>  
+        <h1 class="hero-title">  
+            <span class="line1">Better Business</span>  
+            <span class="line2">Bureau</span>  
+            <span class="line3">Bringing better business practices through role play</span>  
+        </h1>  
+        <p class="hero-subtitle">  
+            Managing and maintaining a proper business atmosphere within Last Call RP.  
+            Ensuring compliance, fostering community, and building a vibrant economy.  
+        </p>  
+        <div class="hero-cta">  
+            <a href="#mission" class="btn btn-primary">Get Started</a>  
+            <a href="#rules" class="btn btn-outline">View Rules</a>  
+        </div>  
+        <div class="scroll-indicator">  
+            <span></span>  
+        </div>  
+    </header>  
+
+    <!-- ===== MISSION ===== -->  
+    <section id="mission">  
+        <div class="container">  
+            <h2 class="section-title">Our Mission</h2>  
+            <p style="color: #8a8f9a; max-width: 800px; font-size: 1.05rem;">  
+                The BBB is set up to manage and maintain a proper business atmosphere within Last Call RP.   
+                We require each business to pay taxes and fees, issue business licenses, review the economy,   
+                and host community events.  
+            </p>  
+            <div class="mission-grid">  
+                <div class="mission-card">  
+                    <div class="icon">📋</div>  
+                    <h3>Licensing & Compliance</h3>  
+                    <p>  
+                        Each business receives a certificate equivalent to a business license. These must be kept   
+                        on the premises at all times.  
+                    </p>  
+                </div>  
+                <div class="mission-card">  
+                    <div class="icon">💰</div>  
+                    <h3>Economic Oversight</h3>  
+                    <p>  
+                        We review the city's economy to ensure businesses are not under/over charging and are   
+                        complying with the wishes of the city government.  
+                    </p>  
+                </div>  
+                <div class="mission-card">  
+                    <div class="icon">🎉</div>  
+                    <h3>Community Events</h3>  
+                    <p>  
+                        The BBB schedules and promotes events around the city. Business owners are encouraged   
+                        to host and collaborate with us.  
+                    </p>  
+                </div>  
+            </div>  
+        </div>  
+    </section>  
+
+    <!-- ===== OWNERSHIP ===== -->  
+    <section id="owner">  
+        <div class="container">  
+            <h2 class="section-title">Becoming a Business Owner</h2>  
+            <p style="color: #8a8f9a; max-width: 800px; margin-bottom: 16px;">  
+                Being a business owner is a <strong class="gold-text">privilege</strong> that comes with responsibilities.   
+                You must follow all city rules as well as rules set forth by the BBB.  
+            </p>  
+            <div class="steps">  
+                <div class="step-item">  
+                    <div class="step-number">1</div>  
+                    <div class="step-content">  
+                        <h4>Develop Your Idea</h4>  
+                        <p>Come up with a business concept and contact the BBB in the city.</p>  
+                    </div>  
+                </div>  
+                <div class="step-item">  
+                    <div class="step-number">2</div>  
+                    <div class="step-content">  
+                        <h4>Initial Meeting &amp; Government Contact</h4>  
+                        <p>After the initial meeting, you will be instructed to contact the BBB through government channels.</p>  
+                    </div>  
+                </div>  
+                <div class="step-item">  
+                    <div class="step-number">3</div>  
+                    <div class="step-content">  
+                        <h4>Submit a Business Proposal</h4>  
+                        <p>When the government gets back to you, submit a detailed business proposal.</p>  
+                    </div>  
+                </div>  
+                <div class="step-item">  
+                    <div class="step-number">4</div>  
+                    <div class="step-content">  
+                        <h4>Grow &amp; Operate Your Business</h4>  
+                        <p>Keep your business open and active in-character. You cannot open minimally (once a week). We want a functional, self-standing business side for the city.</p>  
+                    </div>  
+                </div>  
+            </div>  
+            <div style="margin-top: 32px; padding: 20px 24px; background: rgba(201, 169, 96, 0.06); border-radius: 12px; border-left: 3px solid #c9a960;">  
+                <p style="color: #b0b5c0; font-size: 0.95rem;">  
+                    <span class="gold-text">⚠ Note:</span> Each player may own only <strong>ONE</strong> business.   
+                    If you cannot take on the responsibility, do not apply — let someone who can, take it.  
+                </p>  
+            </div>  
+        </div>  
+    </section>  
+
+    <!-- ===== FEES & TAXES ===== -->  
+    <section id="fees">  
+        <div class="container">  
+            <h2 class="section-title">Fees &amp; Taxes</h2>  
+            <p style="color: #8a8f9a; max-width: 800px;">  
+                Every business must pay a flat license fee and ongoing taxes. Keep a running record of your   
+                finances to help the BBB track your success.  
+            </p>  
+            <div class="fee-cards">  
+                <div class="fee-card">  
+                    <h3>License Fee</h3>  
+                    <div class="amount">$200,000</div>  
+                    <p>  
+                        Upfront flat fee for the purchase of the license. This money is added to the business   
+                        account and may only be used for business-related purchases.  
+                    </p>  
+                </div>  
+                <div class="fee-card fee-highlight">  
+                    <h3>Bi-Weekly Tax</h3>  
+                    <div class="amount">15% <small>or $150,000</small></div>  
+                    <p>  
+                        Every two weeks on Friday, businesses pay the BBB <strong>15% of bi-weekly sales</strong>   
+                        or <strong>$150,000</strong> — whichever is higher. This is <em>non-negotiable</em>.  
+                        Failure to pay may result in seizure.  
+                    </p>  
+                </div>  
+                <div class="fee-card">  
+                    <h3>Bonuses</h3>  
+                    <div class="amount" style="font-size: 2rem;">Up to $150K</div>  
+                    <p>  
+                        Owners may give bonuses based on sales at their discretion, but should not exceed   
+                        <strong>$150,000 per person</strong>. This is separate from normal pay.  
+                    </p>  
+                </div>  
+                <div class="fee-card">  
+                    <h3>Startup Funds</h3>  
+                    <p style="margin-top: 12px;">  
+                        You may deposit additional funds into the business account. These are considered   
+                        <strong>startup</strong> and should only be used for bonuses, event planning, and   
+                        purchasing stock/materials.  
+                    </p>  
+                </div>  
+            </div>  
+        </div>  
+    </section>  
+
+    <!-- ===== RULES ===== -->  
+    <section id="rules">  
+        <div class="container">  
+            <h2 class="section-title">Hard Core Rules</h2>  
+            <p style="color: #8a8f9a; max-width: 800px;">  
+                All businesses must adhere to these regulations. Non-compliance may result in warnings,   
+                probation, fines, or permanent closure.  
+            </p>  
+            <div class="rules-grid">  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Inactivity:</strong> If a business hasn't opened for at least 1 week, the BBB opens an investigation. After a warning, you have 7 days to become active or the business will be closed.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Probation:</strong> If the owner makes an effort to fix inactivity issues, they are placed on <strong>30-day probation</strong> subject to review at the BBB's discretion.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Permanent Removal:</strong> If the owner is permanently removed from the server, the business passes to the co-owner/manager or is closed. The owner loses all rights.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Criminal Activity:</strong> Criminals may own businesses, but <strong>violent crimes</strong> on business premises are heavily discouraged. No gang beef or gunplay inside. Clocked-in employees may not be taken hostage.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>No Gang Affiliation:</strong> No visible gang affiliation on any employee. No visible weapons for employees. Employees may defend themselves but cannot abandon their post for gang beef.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Organization Limit:</strong> If you are part of an organization, there may be only <strong>1 of each type of business</strong>.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Discord Required:</strong> All businesses must have a business Discord server. At least one staff member must be invited with admin roles.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>BBB Access:</strong> The BBB holds keys to all businesses and may conduct searches. <strong>No illegal items</strong> may be stored on premises. Violations result in fines, closure, and police reports.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Right to Refuse:</strong> Businesses may refuse service, but there must be a <strong>valid RP reason</strong> — not simply because you dislike their crew/gang.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Essential Businesses:</strong> Food and mechanic shops must be <strong>physically opened</strong>. Being "on-call" does not count. At least one employee must be inside.</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Right to Work:</strong> Last Call is a right-to-work city. You can be hired or fired without reason. <strong>No discrimination</strong> of any kind is tolerated (race, sex, age, religion, etc.).</p>  
+                </div>  
+                <div class="rule-item">  
+                    <span class="bullet">✦</span>  
+                    <p><strong>Dress Code:</strong> Businesses should have a dress code. Staff should be dressed for the role. If it doesn't make sense, don't do it.</p>  
+                </div>  
+            </div>  
+        </div>  
+    </section>  
+
+    <!-- ===== MLO & STOCK ===== -->  
+    <section>  
+        <div class="container">  
+            <h2 class="section-title">MLO &amp; Stock Requirements</h2>  
+            <div class="mission-grid" style="margin-top: 48px;">  
+                <div class="mission-card">  
+                    <div class="icon">🏗️</div>  
+                    <h3>Purchasing an MLO</h3>  
+                    <p>  
+                        For businesses requiring an MLO, the player must purchase it after government approval   
+                        and transfer it to the city. Once "built," you have a <strong>two-week window</strong>   
+                        to get ready — create a menu, hire staff, plan an opening event, and train employees.  
+                    </p>  
+                </div>  
+                <div class="mission-card">  
+                    <div class="icon">📦</div>  
+                    <h3>Pocketable Items</h3>  
+                    <p>  
+                        All pocketable items (food/drinks) must be <strong>transparent, high quality</strong>,   
+                        and must not contain branded names (e.g., "Coke" or "Coca Cola"). Each restaurant must   
+                        have a menu with set prices.  
+                    </p>  
+                </div>  
+                <div class="mission-card">  
+                    <div class="icon">👕</div>  
+                    <h3>Custom EUP</h3>  
+                    <p>  
+                        If you want custom EUP for your business, the BBB will put you in contact with our   
+                        EUP department. A business must be open and functioning for at least   
+                        <strong>2 months</strong> to request a new MLO.  
+                    </p>  
+                </div>  
+            </div>  
+        </div>  
+    </section>  
+
+    <!-- ===== EVENTS ===== -->  
+    <section id="events">  
+        <div class="container">  
+            <h2 class="section-title">Time to Party — Events</h2>  
+            <div class="events-text">  
+                <p>  
+                    Events must be held at least <span class="highlight">once a month</span>. This can include   
+                    a food tasting, car show, or anything creative! You must contact the event team to set it up   
+                    so we can promote it through proper channels in Discord/emails.  
+                </p>  
+                <p>  
+                    <span class="highlight">Multiple businesses can collaborate</span> on events and this will   
+                    count for both businesses for the month. This rule helps build the community, opens up   
+                    avenues of RP, and encourages activity in the city.  
+                </p>  
+                <p>  
+                    You can also do <span class="highlight">"pop-up" events</span> without contacting the events team.  
+                </p>  
+            </div>  
+        </div>  
+    </section>  
+
+    <!-- ===== TRANSFER / SALE ===== -->  
+    <section id="transfer">  
+        <div class="container">  
+            <h2 class="section-title">Transferring &amp; Selling</h2>  
+            <div class="transfer-box">  
+                <h3>All Sales Are Final</h3>  
+                <p>  
+                    If at any time after opening the owner feels they can no longer run the business as set   
+                    forth in BBB regulations, they may petition to transfer the business to another citizen.  
+                </p>  
+                <ul>  
+                    <li>Contact the BBB about the transfer/sale and discuss the new idea/plan.</li>  
+                    <li>The owner must provide the BBB with at least <strong>2 potential candidates</strong>.</li>  
+                    <li>If candidates don't meet requirements, the BBB may place the business up for sale or close it.</li>  
+                    <li>Each new submission must follow the standard BBB form for purchasing.</li>  
+                    <li><strong>Submitting a proposal does not guarantee ownership.</strong></li>  
+                    <li>Business sales must <strong>not exceed $1,000,000 in cash</strong> and must not involve real-world currency.</li>  
+                </ul>  
+            </div>  
+        </div>  
+    </section>  
+
+    <!-- ===== FOOTER ===== -->  
+    <footer>  
+        <div class="container">  
+            <div class="footer-logo">BBB</div>  
+            <p>&copy; 2024 Last Call RP Better Business Bureau. All rights reserved.</p>  
+        </div>  
+    </footer>  
+
+    <script src="script.js"></script>  
+</body>  
+
+</html>
